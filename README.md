@@ -3,7 +3,8 @@ A web page to facilitate trades on Board Game Geek
 
 To do:
 
-- [ ] Create API to get list of users that want a game
+- [x] Create API to get list of users that want a game
+- [x] Publish API
 - [ ] Create a page at koser.us/antonio
 - [ ] Display users that want a hardcoded game
 - [ ] Display users that want a game (id input by user)

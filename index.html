@@ -33,9 +33,9 @@
 
         <div class="main-container">
             <main class="main wrapper clearfix">
-                "Tell me where is fancy bred,
-                <br>
-                Or in the heart, or in the head?"
+                Users wanting 71906:
+                <ul id="users-wanting-71906">
+                </ul>
             </main> <!-- #main -->
         </div> <!-- #main-container -->
 
@@ -54,7 +54,13 @@
         <script>
             $(document).ready(function(){
                 $.getJSON("http://bgg-users-want.azurewebsites.net/api/game/71906", function(data) {
-                    console.log(data);
+                    $.each(data.UsersWant, function(index, item) {
+                        console.log(item.Name);
+                        
+                        $('#users-wanting-71906').append(
+                            $('<li>').append(item.Name)
+                        )
+                    });
                 });
             });
         </script>

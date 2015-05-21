@@ -19,3 +19,6 @@ C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\bin\System.Web.Http.W
 C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\obj\Release\bgg-users-want.csprojResolveAssemblyReference.cache
 C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\obj\Release\bgg-users-want.dll
 C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\obj\Release\bgg-users-want.pdb
+C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\bin\System.Web.Cors.dll
+C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\bin\System.Web.Http.Cors.dll
+C:\Users\Brian\Documents\GitHub\antonio\api\bgg-users-want\bin\System.Web.Http.Cors.xml

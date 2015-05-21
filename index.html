@@ -50,5 +50,13 @@
 
         <script src="/js/main.js"></script>
         <script src="/js/antonio.js"></script>
+        
+        <script>
+            $(document).ready(function(){
+                $.getJSON("http://bgg-users-want.azurewebsites.net/api/game/71906", function(data) {
+                    console.log(data);
+                });
+            });
+        </script>
     </body>
 </html>

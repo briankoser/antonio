@@ -22,8 +22,27 @@
         
         <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet'>
         <style>
+            button {
+                font-size: 1.4em;
+                vertical-align: middle;
+            }
+            
             button[disabled] {
                 opacity: .5;
+            }
+            
+            input {
+                font-size: 1.6em;
+            }
+            
+            label {
+                font-size: 2.4em;
+                vertical-align: middle;
+            }
+            
+            
+            .tight-margin-top {
+                margin-top: .5em;
             }
         </style>
     </head>
@@ -38,12 +57,18 @@
 
         <div class="main-container">
             <main class="main wrapper clearfix">
-                <input id="gameId" type="text"></input>
-                <button id='getUsersWanting'>Get users wanting game</button>
-            
-                Users wanting:
-                <ul id="users-wanting">
-                </ul>
+                <div>
+                    <label for="gameId">BGG Game ID</label>
+                    <input id="gameId" type="text"></input>
+                </div>
+                <div class="tight-margin-top">
+                    <button id='getUsersWanting'>Get users wanting game</button>
+                </div>
+                
+                <article>
+                    <h2>Users wanting</h2>
+                    <ul id="users-wanting"></ul>
+                </article>
             </main> <!-- #main -->
         </div> <!-- #main-container -->
 

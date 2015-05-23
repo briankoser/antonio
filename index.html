@@ -21,6 +21,11 @@
         <![endif]-->
         
         <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet'>
+        <style>
+            button[disabled] {
+                opacity: .5;
+            }
+        </style>
     </head>
     <body>
         <div class="header-container">
@@ -33,8 +38,11 @@
 
         <div class="main-container">
             <main class="main wrapper clearfix">
-                Users wanting 71906:
-                <ul id="users-wanting-71906">
+                <input id="gameId" type="text"></input>
+                <button id='getUsersWanting'>Get users wanting game</button>
+            
+                Users wanting:
+                <ul id="users-wanting">
                 </ul>
             </main> <!-- #main -->
         </div> <!-- #main-container -->
@@ -52,17 +60,35 @@
         <script src="/js/antonio.js"></script>
         
         <script>
-            $(document).ready(function(){
-                $.getJSON("http://bgg-users-want.azurewebsites.net/api/game/71906", function(data) {
+            //$(document).ready(function() {
+            
+            // Events
+            $('#getUsersWanting').click(function() {
+                var btnGetUsersWanting = $('#getUsersWanting');
+                var btnGetUsersWantingText = btnGetUsersWanting.html();
+                disableButton(btnGetUsersWanting, 'Loading...');
+                
+                var gameID = $('#gameId').val(); //'71906';
+                
+                $.getJSON("http://bgg-users-want.azurewebsites.net/api/game/" + gameID, function(data) {
                     $.each(data.UsersWant, function(index, item) {
-                        console.log(item.Name);
-                        
-                        $('#users-wanting-71906').append(
+                        $('#users-wanting').append(
                             $('<li>').append(item.Name)
                         )
                     });
+                    
+                    enableButton(btnGetUsersWanting, btnGetUsersWantingText);
                 });
             });
+            
+            // Methods
+            function disableButton(btn, disabledText) {
+                btn.prop('disabled', true).html(disabledText);
+            }
+            
+            function enableButton(btn, enabledText) {
+                btn.prop('disabled', false).html(enabledText);
+            }
         </script>
     </body>
 </html>

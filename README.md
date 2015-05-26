@@ -5,12 +5,12 @@ To do:
 
 - [x] Create API to get list of users that want a game
 - [x] Publish API
-- [ ] Create a page at koser.us/antonio
-- [ ] Display users that want a hardcoded game
-- [ ] Display users that want a game (id input by user)
+- [x] Create a page at koser.us/antonio
+- [x] Display users that want a hardcoded game
+- [x] Display users that want a game (id input by user)
 - [ ] For users that want the game, display games they are trading
-- [ ] Input user id to get all games trading
 - [ ] Contact BGG to see if I can get an exception to TOS
-- [ ] Cache API data
+- [ ] Highlight games for trade that are close in price
 - [ ] Sort users by closest geographically
+- [ ] Cache API data
 - [ ] Make it look nice

@@ -73,17 +73,25 @@
 
         <div class="main-container">
             <main class="main wrapper clearfix">
+                <p>Antonio finds the <abbr class="small-caps" title="Board Game Geek">BGG</abbr> users that want to trade for your game, and lists the games that those users have on the trading block.</p>
+                
+                <h2>Your game</h2>
                 <div>
                     <label for="gameId">BGG Game ID</label>
                     <input id="gameId" type="text"></input>
-                </div>
-                <div class="tight-margin-top">
-                    <button id='getUsersWanting'>Get users wanting game</button>
+                    <button id="getUsersWanting">Find some trades!</button>
                 </div>
                 
-                <article>
-                    <h2>Users wanting</h2>
-                    <ul id="users-wanting"></ul>
+                <article id="artGamesAvailable">
+                    <h2>Their games</h2>
+                    <ol id="olGamesAvailable" class="no-list-style">
+                    </ol>
+                </article>
+                
+                <article id="artUsersUnavailable">
+                    <h3>I don’t know what these users have…yet!</h3>
+                    <span class="subheader">BGG is still generating these users’ game collections; <strong>wait a few minutes and try again</strong>. On a busy day, this could take hours. Time for a quick game of <abbr class="small-caps" title="Twilight Imperium (Third Edition), a long board game">TI3</abbr>! :)</span>
+                    <ul id="users-unavailable" class="tight-margin-top"></ul>
                 </article>
             </main> <!-- #main -->
         </div> <!-- #main-container -->

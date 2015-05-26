@@ -21,8 +21,11 @@
         
         <link href='http://fonts.googleapis.com/css?family=Source+Serif+Pro:400,700' rel='stylesheet'>
         <style>
+            * + * {
+              margin-top: 1em;
+            }
+            
             button {
-                font-size: 1.4em;
                 vertical-align: middle;
             }
             
@@ -30,18 +33,32 @@
                 opacity: .5;
             }
             
+            h1, h2, h3 {
+                margin-bottom: 0;
+            }
+            
             input {
-                font-size: 1.6em;
             }
             
             label {
-                font-size: 2.4em;
                 vertical-align: middle;
             }
             
+            p {
+                max-width: 30em;
+            }
+            
+            .no-list-style li {
+                list-style-type: none;
+            }
             
             .tight-margin-top {
                 margin-top: .5em;
+            }
+            
+            .user-list {
+                font-size: .8em;
+                margin-left: 1em;
             }
         </style>
     </head>

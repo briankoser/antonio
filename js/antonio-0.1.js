@@ -47,9 +47,11 @@ $('#getUsersWanting').click(function() {
                             gamesAvailable[game].push(userName);
                         });
                     }
+                    
+                    
                 });
             }
-            
+                
             var userUrl = 'http://boardgamegeek.com/user/';
             var gameUrl = 'http://boardgamegeek.com/boardgame/';
             $.each(gamesAvailable, function(game, userList) {

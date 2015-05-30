@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading;
 
 namespace bgg_users_want.Models
 {
@@ -48,6 +49,7 @@ namespace bgg_users_want.Models
                 }
 
                 page += 1;
+
             }
 
             users.RemoveAll(x => x.Name == String.Empty);

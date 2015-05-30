@@ -8,7 +8,7 @@ To do:
 - [x] Create a page at koser.us/antonio
 - [x] Display users that want a hardcoded game
 - [x] Display users that want a game (id input by user)
-- [ ] For users that want the game, display games they are trading
+- [x] For users that want the game, display games they are trading
 - [ ] Contact BGG to see if I can get an exception to TOS
 - [ ] Highlight games for trade that are close in price
 - [ ] Sort users by closest geographically

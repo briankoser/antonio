@@ -58,6 +58,7 @@ function getUsersWanting(data) {
         });
         
         $.each(gamesAvailable, displayGames);
+        $('#olGamesAvailable li').sort(asc_sort).appendTo('#olGamesAvailable');
     });
 }
 
@@ -96,4 +97,8 @@ function storeGameCollectionFactory(userName) {
             collectionsAvailable[userName] = data;
         }
     };
+}
+
+function asc_sort(a, b) {
+    return ($(b).text()) < ($(a).text()) ? 1 : -1;
 }

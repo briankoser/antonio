@@ -1,4 +1,5 @@
 $(document).ready(function() {
+    // Initial visibility
     $('#artUsersUnavailable').hide();
     $('#artGamesAvailable').hide();
     
@@ -15,17 +16,44 @@ function antonio() {
     btnGetUsersWantingText = btnGetUsersWanting.html();
     btnGetUsersWanting.prop('disabled', true).html('Processing…');
     
-    /*var*/ gameID = $('#gameId').val(); //'71906';
-    /*var*/ gamesAvailable = {};
-    /*var*/ collectionsAvailable = {};
-    /*var*/ usersDataUnavailable = [];
+    var gameID = $('#gameId').val(); //'71906';
+    collectionsAvailable = {};
     
     btnGetUsersWanting.html('Searching BGG for users that want your game…');
     var usersWantUrl = 'http://bgg-users-want.azurewebsites.net/api/game/' + gameID;
     $.getJSON(usersWantUrl, getUsersWanting);
 }
 
+function asc_sort(a, b) {
+    return ($(b).text()) < ($(a).text()) ? 1 : -1;
+}
+
+function displayGames(gameName, game) {
+    var userUrl = 'http://boardgamegeek.com/user/';
+    var gameUrl = 'http://boardgamegeek.com/boardgame/';
+    
+    var userAnchorsString = 
+        $.map(game.owners, 
+            function(item, index) {
+                return $('<a>', {href:userUrl + item})
+                .append(item)
+                .prop('outerHTML')
+            }
+        )
+        .sort()
+        .join(', ');
+    
+    var gameAnchor = $('<a>', {href:gameUrl + game.id})
+        .append(gameName)
+        .prop('outerHTML');
+    
+    var spanUserList = $('<span>', {'class':'user-list'}).append(userAnchorsString);
+    var liGame = $('<li>').append(gameAnchor).append(spanUserList);
+    $('#olGamesAvailable').append(liGame);
+}
+
 function getUsersWanting(data) {
+    var gamesAvailable = {};
     var btnGetUsersWanting = $('#getUsersWanting');
     btnGetUsersWanting.html('Checking what games they’re trading…');
     
@@ -41,19 +69,20 @@ function getUsersWanting(data) {
     $.when.apply($, gameCollectionRetrievers).done(function() {
         $('#getUsersWanting').prop('disabled', false).html(btnGetUsersWantingText);
         
-        // loop through games user has for trade
-        console.log(JSON.stringify(collectionsAvailable));
-        console.log('\n');
-        
+        // loop through users
         $.each(collectionsAvailable, function(userName, collection) {
+            // loop through games user has for trade
             $.each(collection.items.item, function(index, item) {
-                var game = item.name[0]['_'];
+                var gameName = item.name[0]['_'];
+                var gameID = item['$'].objectid;
             
-                if(!gamesAvailable.hasOwnProperty(game)) {
-                    gamesAvailable[game] = [];
+                if(!gamesAvailable.hasOwnProperty(gameName)) {
+                    gamesAvailable[gameName] = {};
+                    gamesAvailable[gameName].id = gameID;
+                    gamesAvailable[gameName].owners = [];
                 }
                 
-                gamesAvailable[game].push(userName);
+                gamesAvailable[gameName].owners.push(userName);
             });
         });
         
@@ -62,31 +91,9 @@ function getUsersWanting(data) {
     });
 }
 
-function displayGames(game, userList) {
-    var userUrl = 'http://boardgamegeek.com/user/';
-    var gameUrl = 'http://boardgamegeek.com/boardgame/';
-    
-    var userAnchorsString = 
-        $.map(userList, 
-            function(item, index) {
-                return $('<a>', {href:userUrl + item})
-                .append(item)
-                .prop('outerHTML')
-            }
-        )
-        .sort()
-        .join(', ');
-    
-    var spanUserList = $('<span>', {'class':'user-list'}).append(userAnchorsString);
-    var liGame = $('<li>').append(game).append(spanUserList);
-    $('#olGamesAvailable').append(liGame);
-}
-
 function storeGameCollectionFactory(userName) {
     return function(data, textStatus, jqXHR) {
         if (data.hasOwnProperty('message')) {
-            usersDataUnavailable.push(userName);
-            
             $('#users-unavailable').append(
                 $('<li>').append(userName)
             );
@@ -97,8 +104,4 @@ function storeGameCollectionFactory(userName) {
             collectionsAvailable[userName] = data;
         }
     };
-}
-
-function asc_sort(a, b) {
-    return ($(b).text()) < ($(a).text()) ? 1 : -1;
 }

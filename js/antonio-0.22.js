@@ -20,15 +20,20 @@ function antonio() {
     collectionsAvailable = {};
     readyStatusMessage = btnGetUsersWanting.html();
     
+    // Display game name
+    var gameID = $('#txtGameID').val();
+    var gameUrl = 'http://bgg-api.herokuapp.com/api/v1/thing?id=' + gameID;
+    $.getJSON(gameUrl, getGameName);
+    
     // AJAX for determining which users want the input game
-    setStatusMessage('Searching BGG for users that want your game…')
-    var usersWantUrl = 'http://bgg-users-want.azurewebsites.net/api/game/' + $('#txtGameID').val();
+    setStatusMessage('Searching BGG for users that want your game…');
+    var usersWantUrl = 'http://bgg-users-want.azurewebsites.net/api/game/' + gameID;
     $.getJSON(usersWantUrl, getUsersWanting);
 }
 
 /* asc_sort: sorts two HTML elements alphabetically by their text */
 function asc_sort(a, b) {
-    return ($(b).text()) < ($(a).text()) ? 1 : -1;
+    return ($(b).text().toLowerCase()) < ($(a).text().toLowerCase()) ? 1 : -1;
 }
 
 /* displayGame: adds list item of game and users to page */
@@ -59,6 +64,11 @@ function displayGame(gameName, game) {
     $('#olGamesAvailable').append(liGame);
 }
 
+/* getGameName: gets the name for a game, given an id */
+function getGameName(data) {
+    $('#hYourGame').html('Your game (' + data.items.item[0].name[0]['$'].value + ')');
+}
+
 /* getUsersWanting: for all users that want a game, get their collections for trade and display them */
 function getUsersWanting(data) {
     setStatusMessage('Checking what games they’re trading…');
@@ -80,18 +90,20 @@ function getUsersWanting(data) {
         // Loop through collections
         $.each(collectionsAvailable, function(userName, collection) {
             // loop through games user has for trade
-            $.each(collection.items.item, function(index, item) {
-                var gameName = item.name[0]['_'];
-                var gameID = item['$'].objectid;
-            
-                if(!gamesAvailable.hasOwnProperty(gameName)) {
-                    gamesAvailable[gameName] = {};
-                    gamesAvailable[gameName].id = gameID;
-                    gamesAvailable[gameName].owners = [];
-                }
+            if(collection.items.hasOwnProperty('item')) {
+                $.each(collection.items.item, function(index, item) {
+                    var gameName = item.name[0]['_'];
+                    var gameID = item['$'].objectid;
                 
-                gamesAvailable[gameName].owners.push(userName);
-            });
+                    if(!gamesAvailable.hasOwnProperty(gameName)) {
+                        gamesAvailable[gameName] = {};
+                        gamesAvailable[gameName].id = gameID;
+                        gamesAvailable[gameName].owners = [];
+                    }
+                    
+                    gamesAvailable[gameName].owners.push(userName);
+                });
+            }
         });
         
         // Display games available for trade

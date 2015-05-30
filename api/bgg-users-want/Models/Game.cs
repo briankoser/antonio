@@ -50,6 +50,7 @@ namespace bgg_users_want.Models
 
                 page += 1;
 
+                Thread.Sleep(100);
             }
 
             users.RemoveAll(x => x.Name == String.Empty);

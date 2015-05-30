@@ -45,9 +45,6 @@
                 margin-bottom: 0;
             }
             
-            input {
-            }
-            
             label {
                 vertical-align: middle;
             }
@@ -81,13 +78,13 @@
 
         <div class="main-container">
             <main class="main wrapper clearfix">
-                <p>Antonio finds the <abbr title="Board Game Geek">BGG</abbr> users that want to trade for your game, and lists the games that those users have on the trading block.</p>
+                <p>Antonio finds the BGG users that want to trade for your game, and lists the games that those users have on the trading block.</p>
                 
                 <h2>Your game</h2>
                 <div>
-                    <label for="gameId"><abbr>BGG</abbr> Game ID</label>
-                    <input id="gameId" type="text"></input>
-                    <button id="getUsersWanting">Find some trades!</button>
+                    <label for="txtGameID">BGG Game ID</label>
+                    <input id="txtGameID" type="text"></input>
+                    <button id="btnGetUsersWanting">Find some trades!</button>
                 </div>
                 
                 <article id="artGamesAvailable">
@@ -98,8 +95,8 @@
                 
                 <article id="artUsersUnavailable">
                     <h3>I don’t know what these users have…yet!</h3>
-                    <span class="subheader"><abbr>BGG</abbr> is still generating these users’ game collections; <strong>wait a few minutes and try again</strong>. On a busy day, this could take hours. Time for a quick game of <abbr title="Twilight Imperium (Third Edition), a long board game">TI3</abbr>! :)</span>
-                    <ul id="users-unavailable" class="tight-margin-top"></ul>
+                    <span class="subheader">BGG is still generating these users’ game collections; <strong>wait a few minutes and try again</strong>. On a busy day, this could take hours. Time for a quick game of <abbr title="Twilight Imperium (Third Edition), a long board game">TI3</abbr>! :)</span>
+                    <ul id="ulUsersUnavailable" class="tight-margin-top"></ul>
                 </article>
             </main> <!-- #main -->
         </div> <!-- #main-container -->
@@ -114,6 +111,6 @@
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.1.3.js"><\/script>')</script>
 
         <script src="/js/main.js"></script>
-        <script src="/js/antonio-0.13.js"></script>
+        <script src="/js/antonio-0.16.js"></script>
     </body>
 </html>

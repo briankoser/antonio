@@ -86,7 +86,7 @@ function getUsersWanting(data) {
     });
     
     // Get users’ collections
-    $.when.apply($, collectionRetrievers).done(function() {
+    $.when.apply($, collectionRetrievers).always(function() {
         // Loop through collections
         $.each(collectionsAvailable, function(userName, collection) {
             // loop through games user has for trade

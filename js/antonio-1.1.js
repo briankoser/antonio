@@ -40,15 +40,33 @@ function asc_sort(a, b) {
 function displayGame(gameName, game) {
     var gameUrl = 'http://boardgamegeek.com/boardgame/';
     var userUrl = 'http://boardgamegeek.com/user/';
+    var gameClass = 'game-' + game.id;
+    var liGame;
     
-    // Creates hyperlink for game
-    var gameAnchorString = $('<a>', {href:gameUrl + game.id})
-        .append(gameName)
-        .prop('outerHTML');
+    // If game doesn't exist in list, create it
+    if($('.' + gameClass).length)
+    {
+        liGame = $('.' + gameClass);
+    }
+    else
+    {
+        // Creates hyperlink for game
+        var gameAnchorString = $('<a>', {href:gameUrl + game.id})
+            .append(gameName)
+            .prop('outerHTML');
+        
+        // Creates list item for game
+        liGame = $('<li>', {class:gameClass}).append(gameAnchorString);
+    }
     
     // Creates <span> of comma-separated hyperlinks for each user
     var userAnchorsString = 
-        $.map(game.owners, 
+        $.map(
+            getUnique(game.owners)
+            .filter(function(item) {
+                return $('.' + gameClass + ' .user-list a').length == 0 || 
+                    $('.' + gameClass + ' .user-list a:not(:contains("' + item + '"))').length > 0;
+            }),
             function(item, index) {
                 return $('<a>', {href:userUrl + item})
                 .append(item)
@@ -58,9 +76,8 @@ function displayGame(gameName, game) {
         .sort()
         .join(', ');
     var spanUserList = $('<span>', {'class':'user-list'}).append(userAnchorsString);
+    liGame.append(spanUserList);
     
-    // Creates list item of game and users and adds it to the list
-    var liGame = $('<li>').append(gameAnchorString).append(spanUserList);
     $('#olGamesAvailable').append(liGame);
 }
 
@@ -113,6 +130,13 @@ function getUsersWanting(data) {
         // Set form back to “ready” status
         $('#btnGetUsersWanting').prop('disabled', false);
         setStatusMessage(readyStatusMessage);
+    });
+}
+
+/* getUnique: gets only unique items from array */
+function getUnique(array) {
+    return $.grep(array, function(item, index) {
+        return index === $.inArray(item, array);
     });
 }
 

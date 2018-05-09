@@ -13,3 +13,7 @@ To do:
 - [x] Slow calls to BGG, in accordance with TOS
 - [ ] Cache API data
 - [ ] Highlight games for trade that are close in price (might not be worth the effort)
+
+---
+
+No longer hosting or supporting. It served its purpose.
